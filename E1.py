@@ -1,4 +1,7 @@
-Exercise 1: What is the function of the secondary memory in a computer.
+5
+x = 5
+x + 1
+print (x + 1)
 
 Answer:
-(c) Store information for the long term, even beyond a power cycle
+6

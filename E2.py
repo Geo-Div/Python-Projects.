@@ -1,4 +1,6 @@
-Exercise 2: What is a program.
+Exercise 2: Write a program that uses input to prompt a user for their name
+and then welcomes them.
 
 Answer:
- A set of instructions that specifies a computation.
+name = input("enter your name here: Divine\n")
+print("Hello",name)
