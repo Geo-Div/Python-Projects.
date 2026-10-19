@@ -1,43 +1,36 @@
-Exercise 4: Find all unique words in a file
-Shakespeare used over 20,000 words in his works. But how would you determine
-that? How would you produce the list of all the words that Shakespeare used?
-Would you download all his work, read it and track all unique words by hand?
-Let’s use Python to achieve that instead. List all unique words, sorted in alphabetical order, that are stored in a file romeo.txt containing a subset of Shakespeare’s
-work.
-To get started, download a copy of the file www.py4e.com/code3/romeo.txt. Create a list of unique words, which will contain the final result. Write a program to
-open the file romeo.txt and read it line by line. For each line, split the line into a
-list of words using the split function. For each word, check to see if the word is
-already in the list of unique words. If the word is not in the list of unique words,
-add it to the list. When the program completes, sort and print the list of unique
-words in alphabetical order.
-Enter file: romeo.txt
-['Arise', 'But', 'It', 'Juliet', 'Who', 'already',
-'and', 'breaks', 'east', 'envious', 'fair', 'grief',
-'is', 'kill', 'light', 'moon', 'pale', 'sick', 'soft',
-'sun', 'the', 'through', 'what', 'window',
-'with', 'yonder']
+Exercise 4: Add code to the above program to figure out who has sent the most
+messages in the file. After all the data has been read and the dictionary has
+been created, look through the dictionary using a maximum loop (see Chapter 5:
+Maximum and minimum loops) to find who has the most messages and print how
+many messages the person has.
+Enter a file name: mbox-short.txt
+cwen@iupui.edu 5
+Enter a file name: mbox.txt
+zqian@umich.edu 195
 
-
-romeo.txt = ['Arise', 'But', 'It', 'Juliet', 'Who', 'already',
-'and', 'breaks', 'east', 'envious', 'fair', 'grief',
-'is', 'kill', 'light', 'moon', 'pale', 'sick', 'soft',
-'sun', 'the', 'through', 'what', 'window',
-'with', 'yonder']
-
-fname = input("Enter file name: romeo.txt \n")
+Answer:
+fname = input("Enter a file name: ")
 try:
     fhand = open(fname)
 except:
     print("Invalid file name")
     quit()
 
-wordlist = list()
+counts = dict()
 
 for line in fhand:
+    if not line.startswith("From "):
+        continue
     words = line.split()
-    for word in words:
-        if word not in wordlist:
-            wordlist.append(word)
+    email = words[1]
+    counts[email] = counts.get(email, 0) + 1
 
-wordlist.sort()
-print(wordlist)
+bestcount = None
+bestemail = None
+
+for email, count in counts.items():
+    if bestcount is None or count > bestcount:
+        bestcount = count
+        bestemail = email
+
+print(bestemail, bestcount)

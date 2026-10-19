@@ -1,16 +1,30 @@
-Exercise 2: Figure out which line of the above program is still not properly
-guarded. See if you can construct a text file which causes the program to fail and
-then modify the program so that the line is properly guarded and test it to make
-sure it handles your new text file.
+Exercise 2: Write a program that categorizes each mail message by which day of
+the week the commit was done. To do this look for lines that start with “From”,
+then look for the third word and keep a running count of each of the days of the
+week. At the end of the program print out the contents of your dictionary (order
+does not matter).
+Sample Line:
+From stephen.marquard@uct.ac.za Sat Jan 5 09:14:16 2008
+Sample Execution:
+python dow.py
+Enter a file name: mbox-short.txt
+{'Fri': 20, 'Thu': 6, 'Sat': 1}
 
 Answer:
-fname = input("Enter file name: ")
-fhand = open(fname)
-count = 0
+fname = input("Enter a file name: ")
+try:
+    fhand = open(fname)
+except:
+    print("Invalid file name")
+    quit()
+
+counts = dict()
+
 for line in fhand:
+    if not line.startswith("From "):
+        continue
     words = line.split()
-    if len(words) == 0:
-        continue
-    if words[0] != 'From':
-        continue
-    print(words[2])
+    day = words[2]
+    counts[day] = counts.get(day, 0) + 1
+
+print(counts)
