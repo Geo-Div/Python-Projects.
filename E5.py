@@ -1,11 +1,15 @@
-Exercise 5: What will the following Python program print out?
-def fred():
-print("Zap")
-def jane():
-print("ABC")
-jane()
-fred()
-jane()
+Exercise 5: Slicing strings
+Take the following Python code that stores a string:
+str = 'X-DSPAM-Confidence: 0.8475'
+Use find and string slicing to extract the portion of the string after the colon
+character and then use the float function to convert the extracted string into a
+floating point number.
 
-Answer:
-d) ABC Zap ABC
+Answers:
+text = 'X-DSPAM-Confidence: 0.8475'
+
+pos = text.find(":")
+extracted = text[pos + 1:]
+num = float(extracted)
+
+print(num)
