@@ -1,24 +1,24 @@
-Exercise 2: Rewrite your pay program using try and except so that your program handles non-numeric input gracefully by printing a message and exiting the
-program. The following shows two executions of the program:
-Enter Hours: 20
-Enter Rate: nine
-Error, please enter numeric input
-Enter Hours: forty
-Error, please enter numeric input
+Exercise 2: Write another program that prompts for a list of numbers as above
+and at the end prints out both the maximum and minimum of the numbers instead
+of the average.
 
 Answer:
-try:
-    hours = float(input("Enter Hours: 20"))
-    rate = float(input("Enter Rate: nine"))
-except ValueError:
-    print("Error, please enter numeric input")
-    quit()
+largest = None
+smallest = None
 
-if "hours > 40":
-    regular_pay = "40 * rate"
-    overtime_pay = "(hours - 40) * rate * 1.5"
-    pay = regular_pay + overtime_pay
-else:
-    pay = Hours * Rate
+while True:
+    entry = input("Enter a number: ")
+    if entry == "done":
+        break
+    try:
+        num = int(entry)
+    except ValueError:
+        print("Invalid input")
+        continue
+    if largest is None or num > largest:
+        largest = num
+    if smallest is None or num < smallest:
+        smallest = num
 
-print("pay:", pay )
+print("Maximum:", largest)
+print("Minimum:", smallest)
