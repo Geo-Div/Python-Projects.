@@ -1,21 +1,23 @@
-Exercise 1: Write a program to read through a file and print the contents of the
-file (line by line) all in upper case. Executing the program will look as follows:
-python shout.py
-Enter a file name: mbox-short.txt
-FROM STEPHEN.MARQUARD@UCT.AC.ZA SAT JAN 5 09:14:16 2008
-RETURN-PATH: <POSTMASTER@COLLAB.SAKAIPROJECT.ORG>
-RECEIVED: FROM MURDER (MAIL.UMICH.EDU [141.211.14.90])
-BY FRANKENSTEIN.MAIL.UMICH.EDU (CYRUS V2.3.8) WITH LMTPA;
-SAT, 05 JAN 2008 09:14:16 -0500
+Exercise 1: Write a function called chop that takes a list and modifies it, removing
+the first and last elements, and returns None. Then write a function called middle
+that takes a list and returns a new list that contains all but the first and last
+elements
 
 Answer:
-fname = input("Enter a file name: mbox-short.txt ")
-try:
-    fhand = open(fname)
-except FileNotFoundError:
-    print("invalid file name")
-    quit()
+letters = ['a', 'b', 'c', 'd']
+chop(letters)
 
-for line in fhand:
-    line = line.rstrip()
-    print(line.upper())
+def chop(letters):
+    del letters[0]
+    del letters[-1]
+
+print(letters)
+
+letters = ['a', 'b', 'c', 'd']
+middle(letters)
+
+def middle(letters):
+    return letters[1:-1]
+    rest = middle(letters)
+
+print(middle(letters))

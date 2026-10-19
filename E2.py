@@ -1,34 +1,16 @@
-Exercise 2: Write a program to prompt for a file name, and then read through
-the file and look for lines of the form:
-X-DSPAM-Confidence: 0.8475
-When you encounter a line that starts with “X-DSPAM-Confidence:” pull apart
-the line to extract the floating-point number on the line. Count these lines and
-then compute the total of the spam confidence values from these lines. When you
-reach the end of the file, print out the average spam confidence.
-Enter the file name: mbox.txt
-Average spam confidence: 0.894128046745
-Enter the file name: mbox-short.txt
-Average spam confidence: 0.750718518519
+Exercise 2: Figure out which line of the above program is still not properly
+guarded. See if you can construct a text file which causes the program to fail and
+then modify the program so that the line is properly guarded and test it to make
+sure it handles your new text file.
 
 Answer:
-fname = (input("Enter a file name: mbox-short.txt"))
-try:
-    fhand = open(fname)
-except FileNotFoundError:
-    print("Invalid file name")
-    quit()
-
-total = 0
+fname = input("Enter file name: ")
+fhand = open(fname)
 count = 0
-
 for line in fhand:
-    if not line.startswith("X-DSPAM-Confidence: 0.8475"):
+    words = line.split()
+    if len(words) == 0:
         continue
-    pos = line.find(":")
-    piece = line[pos + 1:]
-    num = float(piece)
-    total = total + num
-    count = count + 1
-
-average = total / count
-print("Average spam confidence: 0.750718518519 ", average)
+    if words[0] != 'From':
+        continue
+    print(words[2])
