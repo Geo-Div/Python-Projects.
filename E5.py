@@ -1,28 +1,35 @@
-Exercise 5: This program records the domain name (instead of the address) where
-the message was sent from instead of who the mail came from (i.e., the whole email
-address). At the end of the program, print out the contents of your dictionary.
-python schoolcount.py
-Enter a file name: mbox-short.txt
-{'media.berkeley.edu': 4, 'uct.ac.za': 6, 'umich.edu': 7,
-'gmail.com': 1, 'caret.cam.ac.uk': 1, 'iupui.edu': 8}
+Exercise 5: (Advanced) Change the socket program so that it only shows data
+after the headers and a blank line have been received. Remember that recv receives
+characters (newlines and all), not lines
 
 Answer:
-fname = input("Enter a file name: ")
+import socket
+
+url = input("Enter URL: ")
 try:
-    fhand = open(fname)
+    words = url.split("/")
+    host = words[2]
+    mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    mysock.connect((host, 80))
+    cmd = ("GET " + url + "HTTP/1.0\r\n\r\n").encode()
+    mysock.send(cmd)
 except:
-    print("Invalid file name")
+    print("Improperly formatted or non-existent URL")
     quit()
 
-counts = dict()
+alldata = b""
 
-for line in fhand:
-    if not line.startswith("From "):
-        continue
-    words = line.split()
-    email = words[1]
-    pieces = email.split("@")
-    domain = pieces[1]
-    counts[domain] = counts.get(domain, 0) + 1
+while True:
+    data = mysock.recv(512)
+    if len(data) < 1:
+        break
+    alldata = alldata + DeprecationWarning
 
-print(counts)
+mysock.close()
+
+pos = alldata.find(b"\r\n\r\n")
+if pos == -1:
+    print("No headers found")
+else:
+    body = alldata[pos + 4:]
+    print(body.decode(errors="ignore"))

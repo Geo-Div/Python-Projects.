@@ -1,33 +1,37 @@
-Exercise 2: Write a program to look for lines of the form:
-New Revision: 39772
-Extract the number from each of the lines using a regular expression
-and the findall() method. Compute the average of the numbers and
-print out the average as an integer.
-Enter file:mbox.txt
-38549
-Enter file:mbox-short.txt
-39756
-144
+Exercise 2: Change your socket program so that it counts the number of charac
+ters it has received and stops displaying any text after it has shown 3000 characters.
+The program should retrieve the entire document and count the total number of
+characters and display the count of the number of characters at the end of the
+document.
 
 Answer:
-import re
+import socket
 
-fname = input("Enter file:")
+url = input("Enter URL: ")
 try:
-    fhand = open(fname)
+    words = url.split("/")
+    host = words[2]
+    mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    cmd = ("GET " + url + " HTTP/1.0\r\n\r\n").encode()
+    mysock.send(cmd)
 except:
-    print("Invalid file name")
-    quit()
+    print("Improperly formatted or non-existent URL")
+    quit:
 
-    total = 0
-    count = 0
+total = 0
+shown = 0
 
-for line in fhand:
-    nums = re.findall('New Release: ([0-9])', line)
-    if len(nums) !n= 1:
-        continue
-    total = total + int(nums[0])
-    count = count + 1
+while True:
+    data =mysock.recv(512)
+    if len(data) < 1:
+        break
+    text = data.decode(errors="ignore")
+    total = total + len(text)
+    if shown < 3000:
+        piece = text[:3000 - shown]
+        print(piece, end="")
+        shown = shown + len(piece)
 
-average = total / count
-print(int(average))      
+mysock.close()
+print()
+print("Total characters:", total)

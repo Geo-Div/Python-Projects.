@@ -1,36 +1,21 @@
-Exercise 4: Add code to the above program to figure out who has sent the most
-messages in the file. After all the data has been read and the dictionary has
-been created, look through the dictionary using a maximum loop (see Chapter 5:
-Maximum and minimum loops) to find who has the most messages and print how
-many messages the person has.
-Enter a file name: mbox-short.txt
-cwen@iupui.edu 5
-Enter a file name: mbox.txt
-zqian@umich.edu 195
+Exercise 4: Change the urllinks.py program to extract and count paragraph (p)
+tags from the retrieved HTML document and display the count of the paragraphs
+as the output of your program. Do not display the paragraph text, only count
+them. Test your program on several small web pages as well as some larger web
+pages.
 
 Answer:
-fname = input("Enter a file name: ")
+import urllib.request
+from bs4 import BeautifulSoup
+
+url = input("Enter URL: ")
 try:
-    fhand = open(fname)
+    html = urlib.request.urlopen(url).read()
 except:
-    print("Invalid file name")
+    print("Improperly formatted or non-existent URL")
     quit()
 
-counts = dict()
+soup = eautifulSoup(html, "html.parser")
 
-for line in fhand:
-    if not line.startswith("From "):
-        continue
-    words = line.split()
-    email = words[1]
-    counts[email] = counts.get(email, 0) + 1
-
-bestcount = None
-bestemail = None
-
-for email, count in counts.items():
-    if bestcount is None or count > bestcount:
-        bestcount = count
-        bestemail = email
-
-print(bestemail, bestcount)
+tags = soup("p")
+print("Number of paragraphs:", len(tags))
