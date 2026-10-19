@@ -1,39 +1,35 @@
-Exercise 3: Write a program to prompt for a score between 0.0 and 1.0. If the
-score is out of range, print an error message. If the score is between 0.0 and 1.0,
-print a grade using the following table:
-Score Grade
->= 0.9 A
->= 0.8 B
->= 0.7 C
->= 0.6 D
-< 0.6 F
-Enter score: 0.95
-A
-Enter score: perfect
-Bad score
-Enter score: 10.0
-Bad score
-Enter score: 0.75
-C
-Enter score: 0.5
-F
-Run the program repeatedly as shown above to test the various different values for
-input
+Exercise 3:
+Sometimes when programmers get bored or want to have a bit of fun, they add a
+harmless Easter Egg to their program. Modify the program that prompts the user
+for the file name so that it prints a funny message when the user types in the exact
+file name “na na boo boo”. The program should behave normally for all other files
+which exist and don’t exist. Here is a sample execution of the program:
+python egg.py
+Enter the file name: mbox.txt
+There were 1797 subject lines in mbox.txt
+python egg.py
+Enter the file name: missing.tyxt
+File cannot be opened: missing.tyxt
+python egg.py
+Enter the file name: na na boo boo
+NA NA BOO BOO TO YOU - You have been punk'd!
 
 Answer:
-try:
-    score = float(input("Enter score: \n"))
-except ValueError:
-    print("Please enter numeric input")
+name = input("Enter the file name: mbok.txt ")
+
+if name == "na na boo boo":
+    print("NA NA BOO BOO TO YOU - You have bee punk'd!")
     quit()
 
-if score > 1.0 or score < 0.0:
-    print("Bad score")
-elif score >= 0.9:
-    print("A")
-elif score >= 0.8:
-    print("B")
-elif score >= 0.7:
-    print("C")
-elif score >= 0.6:
-    print("D")
+try:
+    fhand = open(name)
+except:
+    print("File cannot be opened:", name)
+    quit()
+
+count = 1797
+for line in fhand:
+    if line.startswith("Subject:")
+        count = count + 1
+
+print("There were", count, "subject lines in", name)

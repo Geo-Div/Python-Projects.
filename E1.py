@@ -1,30 +1,21 @@
-Exercise 1: Write a program which repeatedly reads integers until the user enters
-“done”. Once “done” is entered, print out the total, count, and average of the
-integers. If the user enters anything other than an integer, detect their mistake
-using try and except and print an error message and skip to the next integers.
-Enter a number: 4
-Enter a number: 5
-Enter a number: bad data
-Invalid input
-Enter a number: 7
-Enter a number: done
-16 3 5.333333333333333
+Exercise 1: Write a program to read through a file and print the contents of the
+file (line by line) all in upper case. Executing the program will look as follows:
+python shout.py
+Enter a file name: mbox-short.txt
+FROM STEPHEN.MARQUARD@UCT.AC.ZA SAT JAN 5 09:14:16 2008
+RETURN-PATH: <POSTMASTER@COLLAB.SAKAIPROJECT.ORG>
+RECEIVED: FROM MURDER (MAIL.UMICH.EDU [141.211.14.90])
+BY FRANKENSTEIN.MAIL.UMICH.EDU (CYRUS V2.3.8) WITH LMTPA;
+SAT, 05 JAN 2008 09:14:16 -0500
 
 Answer:
-total = 0
-count = 0
+fname = input("Enter a file name: mbox-short.txt ")
+try:
+    fhand = open(fname)
+except FileNotFoundError:
+    print("invalid file name")
+    quit()
 
-while True:
-    entry = input("Enter a number: ")
-    if entry == "done":
-        break
-    try:
-        num = int(entry)
-    except ValueError:
-        print("Invalid input")
-        continue
-    total = total + num
-    count = count + 1
-
-average = total / count
-print(total, count, average)
+for line in fhand:
+    line = line.rstrip()
+    print(line.upper())
