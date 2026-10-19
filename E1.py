@@ -1,23 +1,38 @@
-Exercise 1: Write a function called chop that takes a list and modifies it, removing
-the first and last elements, and returns None. Then write a function called middle
-that takes a list and returns a new list that contains all but the first and last
-elements
+Exercise 1: Revise a previous program as follows: Read and parse the “From”
+lines and pull out the addresses from the line. Count the number of messages from
+each person using a dictionary.
+After all the data has been read, print the person with the most commits by
+creating a list of (count, email) tuples from the dictionary. Then sort the list in
+reverse order and print out the person who has the most commits.
+Sample Line:
+From stephen.marquard@uct.ac.za Sat Jan 5 09:14:16 2008
+Enter a file name: mbox-short.txt
+cwen@iupui.edu 5
+Enterafilename: mbox.txt
+zqian@umich.edu 195
 
 Answer:
-letters = ['a', 'b', 'c', 'd']
-chop(letters)
+fname = input("Enter a file name: ")
+try:
+    fhand = open(fname)
+except:
+    print("Invalid file name")
+    quit()
 
-def chop(letters):
-    del letters[0]
-    del letters[-1]
+counts = dict()
 
-print(letters)
+for line in fhand:
+    if not line.startswith("From "):
+        continue
+    words = line.split()
+    email = words[1]
+    counts[email] = counts.get(email, 0) + 1
 
-letters = ['a', 'b', 'c', 'd']
-middle(letters)
+lst = list()
+for key, val in counts.items():
+    newtup = (val, key)
+    list.append(newtup)
 
-def middle(letters):
-    return letters[1:-1]
-    rest = middle(letters)
+list = sorted(lst, reverse=True)
 
-print(middle(letters))
+print(lst[0][1], lst[0][0])
